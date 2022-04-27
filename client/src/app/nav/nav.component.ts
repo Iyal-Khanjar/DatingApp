@@ -1,51 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { AccountService } from '../_services/account.service';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
-import { AccountService } from '../_services/account.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-	selector: 'app-nav',
-	templateUrl: './nav.component.html',
-	styleUrls: [ './nav.component.css' ]
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-	model: any = {};
-	constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) {}
+  model: any = {}
 
-	ngOnInit(): void {
-		this.getCurrentUser();
-	}
+  constructor(public accountService: AccountService, private router: Router, 
+    private toastr: ToastrService) { }
 
-	login() {
-		this.accountService.login(this.model).subscribe(
-			(response) => {
-				console.log('response', response);
-				this.router.navigateByUrl('/members');
-			},
-			(error) => {
-				console.log(error);
-				this.toastr.error(error.error);
-			}
-		);
-	}
+  ngOnInit(): void {
+  }
 
-	logout() {
-		this.accountService.logout();
-		this.router.navigateByUrl('/');
-	}
+  login() {
+    this.accountService.login(this.model).subscribe(response => {
+      this.router.navigateByUrl('/members');
+    })
+  }
 
-	getCurrentUser() {
-		this.accountService.currentUser$.subscribe(
-			(user) => {
-				if (user != null) {
-					console.log('user', user);
-				}
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	}
+  logout() {
+    this.accountService.logout();
+    this.router.navigateByUrl('/')
+  }
 }

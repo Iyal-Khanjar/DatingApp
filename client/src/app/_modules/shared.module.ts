@@ -4,14 +4,17 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-	declarations: [],
-	imports: [
-		CommonModule,
-		BsDropdownModule.forRoot(),
-		ToastrModule.forRoot({
-			positionClass: 'toast-bottom-right'
-		})
-	],
-	exports: [ BsDropdownModule, ToastrModule ]
+  declarations: [],
+  imports: [
+    CommonModule,
+    BsDropdownModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    })
+  ],
+  exports: [
+    BsDropdownModule,
+    ToastrModule
+  ]
 })
-export class SharedModule {}
+export class SharedModule { }
